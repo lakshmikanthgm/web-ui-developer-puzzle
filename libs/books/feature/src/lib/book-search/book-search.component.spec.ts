@@ -28,5 +28,5 @@ describe('BookSearchComponent', () => {
 
   it('should trackByBook method return unique id', () => {
     expect(component.trackByBook(1, {id: '1'} as ReadingListBook)).toEqual('1');
-  })
+  });
 });

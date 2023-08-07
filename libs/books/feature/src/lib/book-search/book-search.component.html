@@ -36,8 +36,9 @@
               color="primary"
               (click)="addBookToReadingList(b)"
               [disabled]="b.isAdded"
+              data-cy="add-book"
             >
-              Want to Read
+              {{ !b.finished ? 'Want to Read' : 'Finished'}}
             </button>
           </div>
         </div>
