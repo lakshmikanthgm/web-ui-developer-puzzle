@@ -8,7 +8,7 @@ describe('When: Use the search feature', () => {
 
     cy.get('form').submit();
 
-    cy.get('[data-testing="book-item"]').should('have.length.greaterThan', 1);
+    cy.get('[data-testing="book-item"]').should('have.length.greaterThan', 2);
   });
 
   xit('Then: I should see search results as I am typing', () => {

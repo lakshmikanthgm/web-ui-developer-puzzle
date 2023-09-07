@@ -2,7 +2,7 @@ import { initialState, readingListAdapter } from './reading-list.reducer';
 import {
   booksAdapter,
   initialState as booksInitialState
-} from './books.reducer';
+} from '../books/books.reducer';
 import * as ToReadSelectors from './reading-list.selectors';
 import { createBook, createReadingListItem } from '@tmo/shared/testing';
 
