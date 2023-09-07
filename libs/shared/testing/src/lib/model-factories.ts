@@ -1,4 +1,5 @@
 import { Book, ReadingListItem } from '@tmo/shared/models';
+import { of } from 'rxjs';
 
 export function createBook(id: string): Book {
   return {
@@ -20,4 +21,12 @@ export function createReadingListItem(bookId: string): ReadingListItem {
     coverUrl: '',
     publishedDate: new Date(2020, 0, 1).toISOString()
   };
+}
+
+export class MatSnackBarStub{
+  open(){
+    return {
+      onAction: () => of({})
+    }
+  }
 }
