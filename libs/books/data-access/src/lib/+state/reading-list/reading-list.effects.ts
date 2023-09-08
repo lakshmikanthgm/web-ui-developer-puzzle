@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, exhaustMap, map } from 'rxjs/operators';
+import { catchError, concatMap, exhaustMap, map, mergeMap } from 'rxjs/operators';
 import { ReadingListItem } from '@tmo/shared/models';
 import * as ReadingListActions from './reading-list.actions';
 
@@ -48,6 +48,28 @@ export class ReadingListEffects implements OnInitEffects {
           ),
           catchError(() =>
             of(ReadingListActions.failedRemoveFromReadingList({ item }))
+          )
+        )
+      )
+    )
+  );
+
+  markBookAsFinished$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReadingListActions.finishedReadingList),
+      mergeMap(({ bookId }) =>
+        this.http.put<ReadingListItem>(`/api/reading-list/${bookId}/finished`, null).pipe(
+          map((readingList) => 
+            ReadingListActions.finishedReadingListSuccess({updatedReadingList: {
+              id: readingList.bookId,
+              changes: {
+                finished: readingList.finished,
+                finishedDate: readingList.finishedDate
+              }
+            }})
+          ),
+          catchError((error) =>
+            of(ReadingListActions.finishedReadingListFailure({ error }))
           )
         )
       )

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getReadingList, removeFromReadingList } from '@tmo/books/data-access';
+import { finishedReadingList, getReadingList, removeFromReadingList } from '@tmo/books/data-access';
 import { ReadingListItem } from '@tmo/shared/models';
 import { shareReplay } from 'rxjs/operators';
 
@@ -15,6 +15,10 @@ export class ReadingListComponent {
   );
 
   constructor(private readonly store: Store) {}
+
+  markBookAsFinished(item: ReadingListItem) {
+    this.store.dispatch(finishedReadingList({ bookId: item.bookId }))
+  }
 
   removeFromReadingList(item) {
     this.store.dispatch(removeFromReadingList({ item }));
